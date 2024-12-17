@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
+import jobRoutes from "./routes/jobRoutes.js";
 
 dotenv.config(); // Load environment variables
 
@@ -11,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+app.use("/api", jobRoutes);
 // Database Connection
 const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: "postgres" });
 
