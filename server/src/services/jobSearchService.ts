@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_KEY = process.env.GOOGLE_KEY;
 
-export const fetchGoogleJobs = async (query: string): Promise<any> => {
+export const fetchJobs = async (query: string): Promise<any> => {
     try {
     const response = await axios.get(`https://serpapi.com/search`, {
         params: {

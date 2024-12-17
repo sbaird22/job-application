@@ -23,6 +23,7 @@
     "sequelize-cli": "^6.6.2"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",

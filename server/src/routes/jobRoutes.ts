@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Job from "../models/Job.js";
+import Job from "../models/job";
 
 const router = Router();
 
