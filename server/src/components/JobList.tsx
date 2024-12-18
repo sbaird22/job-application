@@ -1,4 +1,4 @@
-// src/components/JobList.tsx
+// src/components/JobList.tsx  THIS NEEDS TO GO ON THE CLIENT SIDE
 import React, { useEffect, useState } from 'react';
 import { fetchJobs } from '../services/jobSearchService';
 
