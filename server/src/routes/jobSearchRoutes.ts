@@ -1,4 +1,4 @@
-import { Router, Request, Response, RequestHandler } from "express";
+import { Router, Request, Response } from "express";
 import { fetchJobs } from "../services/jobSearchService";
 import Job from "../models/job";
 
@@ -29,4 +29,5 @@ router.get(
       }
     }
   );
-  
+
+export default router;
