@@ -1,7 +1,12 @@
-import app from "./app";
+// src/app.ts
+import express from "express";
+import cors from "cors";
+import jobSearchRoutes from "./routes/jobSearchRoutes";
 
-const PORT = process.env.PORT || 5000;
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+app.use("/api", jobSearchRoutes);
+
+export { app }; // Named export
