@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_KEY = process.env.GOOGLE_KEY;
 
-export const fetchJobs = async (query: string): Promise<any> => {
+export const fetchJobs = async (query: string): Promise<any[]> => {
     try {
     const response = await axios.get(`https://serpapi.com/search`, {
         params: {
@@ -11,7 +11,7 @@ export const fetchJobs = async (query: string): Promise<any> => {
         q: query, // User-provided job search query
         },
     });
-    return response.data;
+    return response.data as any[];
     }
     catch (error) {
     console.error("Error fetching jobs:", error);

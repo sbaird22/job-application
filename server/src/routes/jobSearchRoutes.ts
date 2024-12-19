@@ -1,22 +1,32 @@
-import { Router, Request, Response } from "express";
-import { fetchGoogleJobs } from "../services/jobSearchService";
+import { Router, Request, Response, RequestHandler } from "express";
+import { fetchJobs } from "../services/jobSearchService";
+import Job from "../models/job";
 
 const router = Router();
 
-router.get("/search-jobs", async (req: Request, res: Response) => {
-    const query = req.query.query as string;
-
-    if (!query) {
-    return res.status(400).json({ error: "Query parameter is required" });
+interface Job {
+    id: string;
+    title: string;
+    location: string;
+    company: string;
+}
+router.get(
+    "/search-jobs",
+    async (req: Request<any, any, any, any>, res: Response): Promise<void> => {
+      const { query } = req.query;
+  
+      if (!query) {
+        res.status(400).json({ success: false, error: "Query parameter is required" });
+        return;
+      }
+  
+      try {
+        const results: Job[] = await fetchJobs(query);
+        res.json({ success: true, data: results });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: "Failed to fetch jobs" });
+      }
     }
-
-    try {
-    const results = await fetchGoogleJobs(query);
-    return res.json(results);
-    }
-    catch (error) {
-    return res.status(500).json({ error: error.message });
-    }
-});
-
-export default router;
+  );
+  
