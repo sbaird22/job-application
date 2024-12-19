@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
-import jobRoutes from "./src/routes/jobRoutes";
+import jobRoutes from "./routes/jobRoutes.js";
 
 dotenv.config(); // Load environment variables
 
