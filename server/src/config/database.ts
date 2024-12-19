@@ -3,15 +3,23 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const databaseUrl = process.env.DATABASE_URL;
-
-if (!databaseUrl) {
+if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL environment variable is not defined");
 }
 
-const sequelize = new Sequelize(databaseUrl, {
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
-  logging: false, // Disable logging in console
+  logging: console.log, // Enable logging for debugging
 });
+
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Database connected successfully!");
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    throw error;
+  }
+})();
 
 export default sequelize;
