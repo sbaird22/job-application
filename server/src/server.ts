@@ -1,10 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./src/.env" }); // Load environment variables
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
 import express, { Request, Response } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import { Sequelize } from "sequelize";
-import jobRoutes from "./routes/jobRoutes.js";
-
-dotenv.config(); // Load environment variables
+import sequelize from "./config/database";
+import jobRoutes from "./routes/jobRoutes";
 
 const app = express(); // Create the Express app
 const PORT = process.env.PORT || 5000;
@@ -21,19 +22,18 @@ app.get("/", (_: Request, res: Response) => {
     res.send("Job Tracker API Running!");
 });
 
-// Database Connection
-const sequelize = new Sequelize(process.env.DATABASE_URL || "", { dialect: "postgres" });
-
+// Ensure database connection and start server
 (async () => {
-    try 
-    {
-    await sequelize.authenticate();
-    console.log("Database connected!");
-    }
-    catch (error) {
-    console.error("Database connection failed:", error);
+    try {
+        await sequelize.authenticate();
+        console.log("Database connected!");
+    } catch (error) {
+        console.error("Database connection failed:", error);
+        process.exit(1); // Exit process if the database connection fails
     }
 
-  // Start Server after database connection
-    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+    // Start the server
+    app.listen(PORT, () =>
+        console.log(`Server running on http://localhost:${PORT}`)
+    );
 })();

@@ -3,13 +3,6 @@ import { fetchJobs } from "../services/jobSearchService";
 import Job from "../models/job";
 
 const router = Router();
-
-interface Job {
-    id: string;
-    title: string;
-    location: string;
-    company: string;
-}
 router.get(
     "/search-jobs",
     async (req: Request<any, any, any, any>, res: Response): Promise<void> => {
