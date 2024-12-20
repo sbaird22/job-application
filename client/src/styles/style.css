@@ -5,8 +5,12 @@ body {
   background-color: var(--background);
   color: var(--text);
   transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/* Root Variables */
 :root {
   --background: #f9f9f9;
   --text: #333;
@@ -28,6 +32,11 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
 }
 
 /* Header Styles */
@@ -46,6 +55,7 @@ footer {
   padding: 20px;
   background-color: var(--secondary);
   color: var(--text);
+  width: 100%; 
 }
 
 /* Card Styles */
@@ -65,32 +75,32 @@ footer {
 /* Mobile-Friendly Styles */
 @media (max-width: 768px) {
   .container {
-      padding: 10px;
+    padding: 10px;
   }
 
   header {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .card {
-      padding: 15px;
-      font-size: 0.9em;
+    padding: 15px;
+    font-size: 0.9em;
   }
 }
 
 @media (max-width: 480px) {
   .card {
-      padding: 10px;
-      font-size: 0.8em;
+    padding: 10px;
+    font-size: 0.8em;
   }
 
   header {
-      font-size: 0.9em;
+    font-size: 0.9em;
   }
 
   footer {
-      font-size: 0.8em;
+    font-size: 0.8em;
   }
 }
