@@ -6,7 +6,8 @@ const router = Router();
 router.get(
     "/search-jobs",
     async (req: Request<any, any, any, any>, res: Response): Promise<void> => {
-      const { query } = req.query;
+      const query = req.query.query as string;
+
   
       if (!query) {
         res.status(400).json({ success: false, error: "Query parameter is required" });
@@ -14,6 +15,7 @@ router.get(
       }
   
       try {
+        console.log("Query received:", query);
         const results: Job[] = await fetchJobs(query);
         res.json({ success: true, data: results });
       } catch (error) {

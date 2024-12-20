@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_KEY = process.env.GOOGLE_KEY;
+const API_KEY = process.env.SERPA_API_KEY;
+console.log("API Key:", API_KEY);
+
 
 export const fetchJobs = async (query: string): Promise<any[]> => {
     try {
