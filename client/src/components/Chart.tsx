@@ -1,7 +1,7 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 
-const Chart = ({ data }: { data: any }) => {
+const Chart = ({ data }: { data: Record<string, number> }) => {
     const chartData = {
         labels: Object.keys(data),
         datasets: [
@@ -13,7 +13,11 @@ const Chart = ({ data }: { data: any }) => {
         ],
     };
 
-    return <Pie data={chartData} />;
+    return (
+        <div className="chart-container">
+            <Pie data={chartData} />
+        </div>
+    );
 };
 
 export default Chart;
