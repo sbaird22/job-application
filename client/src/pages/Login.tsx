@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import api from '../utils/api';
 import '../styles/Login.css'; 
-interface FormData {
+interface FormData extends Record<string, unknown> {
   email: string;
   password: string;
 }
@@ -16,7 +16,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await api.post('http://localhost:5000/api/login', formData);
+      const response = await api.post('/login', formData);
       setMessage('Login successful!');
       localStorage.setItem('token', response.data.token); // Save token for authenticated routes
     } catch {

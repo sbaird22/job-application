@@ -15,7 +15,7 @@ const Jobs = () => {
 
     useEffect(() => {
         const fetchJobs = async () => {
-            const response = await api.get(`${import.meta.env.VITE_API_BASE_URL}/jobs`);
+            const response = await api.get("/jobs");
             setJobs(response.data);
 
             const counts: { [key: string]: number } = {};

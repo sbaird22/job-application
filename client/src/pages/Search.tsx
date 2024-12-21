@@ -24,7 +24,7 @@ const Search: React.FC = () => {
         setLoading(true);
 
         try {
-            const response = await api.get(`${import.meta.env.VITE_API_BASE_URL}/search-jobs`, {
+            const response = await api.get('/search', {
                 params: { query },
             });
             setJobs(response.data.jobs || []);
