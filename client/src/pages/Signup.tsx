@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../utils/api';
 import '../styles/Signup.css';
 
-const Signup = () => {
+const Signup: React.FC = () => {
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
     const [message, setMessage] = useState('');
 
