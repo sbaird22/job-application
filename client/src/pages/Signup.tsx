@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../utils/api';
+import api from '../utils/api'; // Ensure this path is correct and the api module exports a post method
 import '../styles/Signup.css';
 
 const Signup: React.FC = () => {
@@ -7,17 +7,18 @@ const Signup: React.FC = () => {
     const [message, setMessage] = useState('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await api.post('http://localhost:5000/api/signup', formData);
-            setMessage('Signup successful! You can now log in.');
+            const response = await api.post('/signup', formData);
+            setMessage(response.data.message);
         } catch (error) {
             console.error(error);
-            setMessage('An error occurred during signup.');
+            setMessage('Signup failed');
         }
     };
 
