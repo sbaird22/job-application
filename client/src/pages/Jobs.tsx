@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from '../utils/api';
 import JobCard from "../components/JobCard";
 import Chart from "../components/Chart";
 
@@ -15,7 +15,7 @@ const Jobs = () => {
 
     useEffect(() => {
         const fetchJobs = async () => {
-            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/jobs`);
+            const response = await api.get(`${import.meta.env.VITE_API_BASE_URL}/jobs`);
             setJobs(response.data);
 
             const counts: { [key: string]: number } = {};

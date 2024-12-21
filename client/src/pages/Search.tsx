@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from '../utils/api';
 
 interface Job {
     id: string;
@@ -24,7 +24,7 @@ const Search: React.FC = () => {
         setLoading(true);
 
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/search-jobs`, {
+            const response = await api.get(`${import.meta.env.VITE_API_BASE_URL}/search-jobs`, {
                 params: { query },
             });
             setJobs(response.data.jobs || []);
