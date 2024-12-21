@@ -6,6 +6,7 @@ dotenv.config({ path: "./src/.env" }); // Load environment variables
 console.log("DATABASE_URL:", process.env.DATABASE_URL);
 import jobRoutes from "./routes/jobRoutes";
 import jobSearchRoutes from "./routes/jobSearchRoutes";
+import authRoutes from './routes/authRoutes';
 
 const app = express(); // Create the Express app
 const PORT = process.env.PORT || 5000;
@@ -21,6 +22,7 @@ app.use(
 app.use(express.json());
 
 // API Routes
+app.use('/api/auth', authRoutes);
 app.use("/api", jobSearchRoutes);
 app.use("/api", jobRoutes);
 
