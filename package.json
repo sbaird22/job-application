@@ -1,0 +1,23 @@
+{
+    "name": "job-application-tracker",
+    "version": "1.0.0",
+    "description": "A full-stack job application tracker built with React, Node.js, Express, and PostgreSQL.",
+    "main": "index.js",
+    "scripts": {
+      "client": "npm start --prefix client",
+      "server": "npm start --prefix server",
+      "client:install": "npm install --prefix client",
+      "server:install": "npm install --prefix server",
+      "build": "npm-run-all build:client build:server",
+      "build:client": "npm run build --prefix client",
+      "build:server": "npm run build --prefix server",
+      "dev": "concurrently \"npm run server\" \"npm run client\"",
+      "install-all": "npm-run-all client:install server:install"
+    },
+    "author": "Shane Baird & Drew DeMarois",
+    "license": "MIT",
+    "dependencies": {
+      "concurrently": "^8.0.1",
+      "npm-run-all": "^4.1.5"
+    }
+  }
