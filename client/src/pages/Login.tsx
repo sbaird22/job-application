@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import '../styles/Login.css'; 
 interface FormData {
   email: string;
@@ -12,20 +12,18 @@ const Login: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/login', formData);
+      const response = await api.post('http://localhost:5000/api/login', formData);
       setMessage('Login successful!');
       localStorage.setItem('token', response.data.token); // Save token for authenticated routes
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        setMessage(error.response.data.message || 'An error occurred during login.');
-      } else {
-        setMessage('An unexpected error occurred.');
-      }
+    } catch {
+      setMessage('An error occurred during login.');
     }
   };
+
   return (
     <div className="login-container">
       <h2>Login</h2>
@@ -52,8 +50,8 @@ const Login: React.FC = () => {
     </div>
   );
 };
-export default Login;
 
+export default Login;
 
 
 
