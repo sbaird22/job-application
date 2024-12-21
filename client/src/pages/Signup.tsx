@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios, { AxiosError } from 'axios';
+import api from '../utils/api';
 import '../styles/Signup.css';
 
 const Signup = () => {
@@ -13,11 +13,11 @@ const Signup = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/signup', formData);
+            await api.post('http://localhost:5000/api/signup', formData);
             setMessage('Signup successful! You can now log in.');
-        } catch (error: unknown) {
-            const err = error as AxiosError;
-            setMessage((err.response?.data as { message: string })?.message || 'An error occurred during signup.');
+        } catch (error) {
+            console.error(error);
+            setMessage('An error occurred during signup.');
         }
     };
 
