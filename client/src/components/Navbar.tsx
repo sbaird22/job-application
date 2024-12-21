@@ -1,19 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import ToggleTheme from "./ToggleTheme";
-import "../styles/Navbar.css";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import '../styles/Navbar.css';
 
 const Navbar: React.FC = () => {
-    return (
-        <header className="navbar">
-            <h1 className="navbar-title">Job Tracker</h1>
-            <nav className="navbar-nav">
-                <Link to="/" className="navbar-btn">Home</Link>
-                <Link to="/search" className="navbar-btn">Search</Link>
-            </nav>
-            <ToggleTheme />
-        </header>
-    );
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+  const isLoggedIn = Boolean(localStorage.getItem('token'));
+  return (
+    <header className="navbar">
+      <h1>Job Tracker</h1>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/search">Search</Link>
+        {!isLoggedIn && <Link to="/signup">Signup</Link>}
+        {!isLoggedIn && <Link to="/login">Login</Link>}
+        {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
+      </nav>
+    </header>
+  );
 };
-
 export default Navbar;
