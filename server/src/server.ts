@@ -9,7 +9,7 @@ import jobSearchRoutes from "./routes/jobSearchRoutes";
 import authRoutes from './routes/authRoutes';
 
 const app = express(); // Create the Express app
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(
