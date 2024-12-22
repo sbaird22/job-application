@@ -4,7 +4,7 @@ import Job from "../models/job";
 
 const router = Router();
 router.get(
-    "/search-jobs",
+    "/search",
     async (req: Request<any, any, any, any>, res: Response): Promise<void> => {
       const query = req.query.query as string;
 
