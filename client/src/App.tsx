@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Search from './pages/Search';
+import SearchComponent from './pages/Search';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
@@ -24,7 +24,7 @@ const App: React.FC = () => {
           path="/search"
           element={
             <PrivateRoute>
-              <Search />
+              <SearchComponent />
             </PrivateRoute>
           }
         />

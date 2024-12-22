@@ -1,72 +1,47 @@
-import React, { useState } from "react";
-import api from '../utils/api';
+// search.tsx
 
-interface Job {
-    id: string;
-    title: string;
-    company: string;
-    location: string;
-    description: string;
-}
+import React, { useState } from 'react';
+import { fetchJobListings, Job } from '../utils/search-api';
 
-const Search: React.FC = () => {
-    const [query, setQuery] = useState<string>("");
+
+const SearchComponent: React.FC = () => {
+    const [query, setQuery] = useState('');
+    const [location, setLocation] = useState('');
     const [jobs, setJobs] = useState<Job[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const apiKey = import.meta.env.SERPA_API_KEY; 
 
     const handleSearch = async () => {
-        if (!query.trim()) {
-            setError("Please enter a search term.");
-            return;
-        }
-        setError(null);
-        setLoading(true);
-
-        try {
-            const response = await api.get('/search', {
-                params: { query },
-            });
-            setJobs(response.data.jobs || []);
-        } catch (err) {
-            setError("Failed to fetch jobs. Please try again.");
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
+        const results = await fetchJobListings(query, location, apiKey);
+        setJobs(results);
     };
 
     return (
-        <div className="search-container">
-            <h1>Search for Jobs</h1>
-            <div className="search-bar">
-                <input
-                    type="text"
-                    placeholder="Search job titles or keywords..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className="search-input"
-                />
-                <button onClick={handleSearch} className="search-btn">Search</button>
-            </div>
-            {loading && <p>Loading...</p>}
-            {error && <p className="error">{error}</p>}
-            <div className="search-results">
-                {jobs.length > 0 ? (
-                    jobs.map((job) => (
-                        <div key={job.id} className="job-card">
-                            <h2>{job.title}</h2>
-                            <p><strong>Company:</strong> {job.company}</p>
-                            <p><strong>Location:</strong> {job.location}</p>
-                            <p>{job.description}</p>
-                        </div>
-                    ))
-                ) : (
-                    !loading && <p>No jobs found.</p>
-                )}
+        <div>
+            <input 
+                type="text" 
+                placeholder="Job title" 
+                value={query} 
+                onChange={(e) => setQuery(e.target.value)} 
+            />
+            <input 
+                type="text" 
+                placeholder="Location" 
+                value={location} 
+                onChange={(e) => setLocation(e.target.value)} 
+            />
+            <button onClick={handleSearch}>Search</button>
+
+            <div>
+                {jobs.map((job, index) => (
+                    <div key={index}>
+                        <h3>{job.title}</h3>
+                        <p>{job.company} - {job.location}</p>
+                        <p>{job.description}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
 };
 
-export default Search;
+export default SearchComponent;
