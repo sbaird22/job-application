@@ -1,29 +1,26 @@
 {
-    "name": "job-application-tracker",
-    "version": "1.0.0",
-    "description": "A full-stack job application tracker built with React, Node.js, Express, and PostgreSQL.",
-    "main": "index.js",
-    "scripts": {
-        "client": "npm start --prefix client",
-        "server": "npm start --prefix server",
-        "client:install": "npm install --prefix client",
-        "server:install": "npm install --prefix server",
-        "build": "npm-run-all build:client build:server",
-        "build:client": "npm run build --prefix client",
-        "build:server": "npm run build --prefix server",
-        "dev": "concurrently \"npm run server\" \"npm run client\"",
-        "install-all": "npm-run-all client:install server:install"
+  "name": "job-application-tracker",
+  "version": "1.0.0",
+  "description": "A full-stack job application tracker built with React, Node.js, Express, and PostgreSQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run client:build && npm run server",
+    "start:dev": "concurrently \"npm run server:dev\" \"wait-on tcp:3001 && npm run client:dev\"",
+    "server": "cd server && npm start",
+    "server:dev": "cd server && npm run dev",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "client:build": "cd client && npm run build",
+    "client:dev": "cd client && npm run dev",
+    "build": "cd server && npm run build",
+    "render-build": "npm install && npm run build"
     },
     "author": "Shane Baird & Drew DeMarois",
     "license": "MIT",
-    "dependencies": {
-        "all": "^0.0.0",
-        "bcrypt": "^5.1.1",
-        "bcryptjs": "^2.4.3",
-        "concurrently": "^8.0.1",
-        "npm-run-all": "^4.1.5"
-    },
     "devDependencies": {
-        "@types/bcryptjs": "^2.4.6"
+        "@types/bcryptjs": "^2.4.6",
+        "concurrently": "^8.2.2",
+        "nodemon": "^3.1.3",
+        "wait-on": "^7.2.0"
     }
 }
