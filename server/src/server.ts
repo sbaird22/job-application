@@ -45,6 +45,10 @@ app.get("*", (_: Request, res: Response) => {
         await sequelize.authenticate(); // Test database connection
         console.log("Database connected successfully!");
 
+        // Run migrations programmatically
+        await sequelize.sync({ alter: true });
+        console.log("Database migrations applied successfully!");
+
         app.listen(PORT, () => {
             console.log(`Server is running at http://localhost:${PORT}`);
         });
