@@ -11,6 +11,11 @@ import authRoutes from './routes/authRoutes';
 const app = express(); // Create the Express app
 const PORT = process.env.PORT || 3001;
 
+    // Start the server
+    app.listen(PORT, () =>
+        console.log(`Server running on http://localhost:${PORT}`)
+);
+
 // Middleware
 app.use(
     cors({
@@ -39,10 +44,5 @@ app.get("/", (_: Request, res: Response) => {
     } catch (error) {
         console.error("Database connection failed:", error);
         process.exit(1); // Exit process if the database connection fails
-    }
-
-    // Start the server
-    app.listen(PORT, () =>
-        console.log(`Server running on http://localhost:${PORT}`)
-    );
-})();
+        }
+    })();
