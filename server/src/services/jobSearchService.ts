@@ -11,11 +11,12 @@ export const fetchJobs = async (q: string, location: string): Promise<any[]> => 
         const response = await axios.get(`https://serpapi.com/search`, {
             params: {
                 engine: "google_jobs",
-                api_key: API_KEY,
                 q, // User-provided job search query
-                location, // User-provided location
+                location,
+                api_key: API_KEY,
             },
         });
+        console.log("SerpaAPI Response:", response.data);
         return response.data.jobs_results || []; // Assuming the jobs are in the 'jobs' field of the response
     } catch (error) {
         console.error("Error fetching jobs:", error);
