@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config(); // Load environment variables
 
-const API_KEY = process.env.VITE_SERPA_API_KEY;
+const API_KEY = process.env.VITE_SERP_API_KEY;
 console.log("API Key:", API_KEY);
 
 export const fetchJobs = async (q: string, location: string): Promise<any[]> => {
@@ -16,7 +16,7 @@ export const fetchJobs = async (q: string, location: string): Promise<any[]> => 
                 api_key: API_KEY,
             },
         });
-        console.log("SerpaAPI Response:", response.data);
+        console.log("SerpAPI Response:", response.data);
         return response.data.jobs_results || []; // Assuming the jobs are in the 'jobs' field of the response
     } catch (error) {
         console.error("Error fetching jobs:", error);
