@@ -1,3 +1,4 @@
+// src/components/Signup.tsx
 import React, { useState } from 'react';
 import api from '../utils/api'; // Ensure this path is correct and the api module exports a post method
 import '../styles/Signup.css';
@@ -14,11 +15,12 @@ const Signup: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await api.post('/auth/signup', formData);
-            setMessage(response.data.message);
-        } catch (error) {
+            const response = await api.post('/api/auth/signup', formData);
+            setMessage(response.data.message); // Assuming the API returns a message
+        } catch (error: unknown) {
             console.error(error);
-            setMessage('Signup failed');
+            const err = error as { response?: { data?: { message?: string } } };
+            setMessage('Signup failed: ' + (err.response?.data?.message || 'Unknown error'));
         }
     };
 
