@@ -14,15 +14,15 @@ router.post('/signup', async (req, res) => {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
-        const existingUser = await User.findOne({ where: { email } });
-        if (existingUser) {
+        const existingUser  = await User.findOne({ where: { email } });
+        if (existingUser ) {
             return res.status(400).json({ message: 'Email already in use.' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         await User.create({ username, email, password: hashedPassword });
 
-        res.status(201).json({ message: 'User created successfully!' });
+        res.status(201).json({ message: 'User  created successfully!' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error.' });
@@ -55,6 +55,18 @@ router.post('/login', async (req, res) => {
         res.status(200).json({ message: 'Login successful!', token });
     } catch (error) {
         console.error(error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
+// Data Route
+router.get('/data', async (req, res) => {
+    try {
+        // Fetch data from the database (e.g., all users)
+        const users = await User.findAll(); // Adjust this based on your data model
+        res.status(200).json(users); // Send the users as a JSON response
+    } catch (error) {
+        console.error('Error fetching data:', error);
         res.status(500).json({ message: 'Internal server error.' });
     }
 });

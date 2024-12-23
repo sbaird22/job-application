@@ -1,18 +1,27 @@
-// search.tsx
+// SearchComponent.tsx
 
 import React, { useState } from 'react';
 import { fetchJobListings, Job } from '../utils/search-api';
-
 
 const SearchComponent: React.FC = () => {
     const [query, setQuery] = useState('');
     const [location, setLocation] = useState('');
     const [jobs, setJobs] = useState<Job[]>([]);
-    const apiKey = import.meta.env.SERPA_API_KEY; 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSearch = async () => {
-        const results = await fetchJobListings(query, location, apiKey);
-        setJobs(results);
+        setLoading(true);
+        setError(null); // Reset error state
+        try {
+            const results = await fetchJobListings(query, location);
+            setJobs(results);
+        } catch (err) {
+            setError('Failed to fetch job listings. Please try again.');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -29,7 +38,11 @@ const SearchComponent: React.FC = () => {
                 value={location} 
                 onChange={(e) => setLocation(e.target.value)} 
             />
-            <button onClick={handleSearch}>Search</button>
+            <button onClick={handleSearch} disabled={loading}>
+                {loading ? 'Searching...' : 'Search'}
+            </button>
+
+            {error && <p style={{ color: 'red' }}>{error}</p>}
 
             <div>
                 {jobs.map((job, index) => (
