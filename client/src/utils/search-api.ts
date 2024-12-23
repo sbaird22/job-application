@@ -1,6 +1,7 @@
+// utils/search-api.ts
+
 import axios from 'axios';
 
-// Define the interface for job listings
 export interface Job {
     title: string;
     company: string;
@@ -8,19 +9,20 @@ export interface Job {
     description: string;
 }
 
-// Function to fetch job listings from SerpApi
-export async function fetchJobListings(query: string, location: string, apiKey: string): Promise<Job[]> {
-    const endpoint = `https://serpapi.com/search?engine=google_jobs&q=${encodeURIComponent(query)}&l=${encodeURIComponent(location)}&api_key=${apiKey}`;
-
+export const fetchJobListings = async (query: string, location: string): Promise<Job[]> => {
+    const apiKey = import.meta.env.VITE_SERPA_API_KEY; // Ensure you use VITE_ prefix for Vite to expose env variables
     try {
-        const response: { data: { jobs: Job[] } } = await axios.get(endpoint, {
-            headers: {
-                'Authorization': `Bearer ${apiKey}`,
-            }
+        const response = await axios.get(`https://serpapi.com/search`, {
+            params: {
+                engine: "google_jobs",
+                api_key: apiKey,
+                q: query,
+                location: location,
+            },
         });
         return response.data.jobs; // Adjust based on the actual response structure
     } catch (error) {
-        console.error('Error fetching job listings:', error);
-        return [];
+        console.error("Error fetching jobs:", error);
+        throw new Error("Failed to fetch job listings");
     }
-}
+};
