@@ -20,7 +20,7 @@ app.use(
 );
 app.use(express.json());
 // Serve static files from the Vite build directory
-const clientPath = path.resolve(__dirname, "../client/dist");
+const clientPath = path.resolve(__dirname, "../../../client/dist");
 app.use(express.static(clientPath));
 // API Routes
 app.use("/api/auth", authRoutes);
