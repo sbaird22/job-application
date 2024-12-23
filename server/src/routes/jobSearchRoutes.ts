@@ -35,6 +35,7 @@ router.get(
 
             // Combine results
             const combinedResults = [...externalResults, ...localResults];
+            console.log("Combined Results:", combinedResults);
 
             res.json({ success: true, data: combinedResults });
         } catch (error) {
