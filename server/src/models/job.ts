@@ -5,6 +5,7 @@ export interface JobAttributes {
   id?: number;
   title: string;
   company: string;
+  location: string;
   status: string; // e.g., "applied", "interviewing", "offer", "rejected"
   appliedDate: Date;
   notes?: string;
@@ -14,6 +15,7 @@ export class Job extends Model<JobAttributes> implements JobAttributes {
   public id!: number;
   public title!: string;
   public company!: string;
+  public location!: string;
   public status!: string;
   public appliedDate!: Date;
   public notes?: string;
@@ -36,6 +38,10 @@ Job.init(
     company: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     status: {
       type: DataTypes.STRING,
