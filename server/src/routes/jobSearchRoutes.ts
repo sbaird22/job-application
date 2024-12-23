@@ -8,6 +8,7 @@ const router = Router();
 router.get(
     "/search",
     async (req: Request<any, any, any, { q?: string; location?: string }>, res: Response): Promise<void> => {
+        console.log("Request received at /search with query:", req.query)
         const { q, location } = req.query;
 
         // Validate the query parameters
