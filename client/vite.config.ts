@@ -1,21 +1,9 @@
 import { defineConfig } from 'vite';
-
-// https://vitejs.dev/config/
+import react from '@vitejs/plugin-react';
 export default defineConfig({
-  server: {
-    port: 5173,
-    open: true,
-    proxy: {
-      '/client/src/utils/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/client/src/utils/search-api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        secure: false
-      },
-    },
+  plugins: [react()],
+  build: {
+    outDir: 'dist', // Outputs the production build files to "dist"
+    emptyOutDir: true,
   },
 });
