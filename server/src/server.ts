@@ -1,15 +1,22 @@
-// src/server.ts
-import express, { Request, Response } from 'express';
-import cors from 'cors';
-import path from 'path';
+import express, { Request, Response } from "express";
+import cors from "cors";
+import path from "path";
+import sequelize from "./config/database"; // Database connection
+import dotenv from "dotenv";
+dotenv.config({ path: "./src/.env" }); // Load environment variables
+
+// Import routes
+import authRoutes from "./routes/authRoutes";
+import jobRoutes from "./routes/jobRoutes";
+import jobSearchRoutes from "./routes/jobSearchRoutes";
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 // CORS configuration
 const corsOptions = {
-    origin: 'http://localhost:3001/api', // Replace with your frontend URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed methods
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173", // Replace with your frontend URL in production
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
 
@@ -17,65 +24,32 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Serve static files from the dist directory
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+// Serve static files from the dist directory (client)
+const clientPath = path.join(__dirname, "../../client/dist");
+app.use(express.static(clientPath));
 
-app.get('/', (_: Request, res: Response) => {
-    const indexPath = path.join(__dirname, '../../client/dist', 'index.html');
+// API Routes
+app.use("/api/auth", authRoutes); // Auth routes
+app.use("/api/jobs", jobRoutes); // Job routes
+app.use("/api/job-search", jobSearchRoutes); // Job search routes
+
+// Serve React app for any unmatched routes
+app.get("*", (_: Request, res: Response) => {
+    const indexPath = path.join(clientPath, "index.html");
     res.sendFile(indexPath);
 });
 
-app.get('/api/data', (_: Request, res: Response) => {
-    res.json({ message: 'Hello from the backend!' });
-});
+// Ensure database connection and start the server
+(async () => {
+    try {
+        await sequelize.authenticate(); // Test database connection
+        console.log("Database connected successfully!");
 
-app.get('api/auth/login', (_: Request, res: Response) => {
-    res.json({ message: 'Login route' });
-});
-
-const users: { username: string; email: string; password: string }[] = []; // Example user storage
-
-// Signup endpoint
-app.post('/auth/signup', (req: Request, res: Response) => {
-    const { username, email, password } = req.body;
-
-    // Check if the user already exists
-    const existingUser  = users.find(user => user.username === username || user.email === email);
-    if (existingUser ) {
-        return res.status(400).json({ message: 'User  already exists' });
+        app.listen(PORT, () => {
+            console.log(`Server is running at http://localhost:${PORT}`);
+        });
+    } catch (error) {
+        console.error("Database connection failed:", error);
+        process.exit(1); // Exit if the database connection fails
     }
-
-    // Create a new user
-    const newUser  = { username, email, password }; // In a real app, hash the password
-    users.push(newUser );
-
-    res.status(201).json({ message: 'User  created successfully' });
-});
-
-// const users: { username: string; password: string }[] = []; // Example user storage
-
-// Login endpoint
-app.post('/auth/login', (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
-  // Find the user by email
-  const user = users.find(user => user.email === email);
-
-  // Check if user exists and password matches
-  if (!user || user.password !== password) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-  }
-
-  // Successful login
-  const token = generateToken(user); // Implement token generation logic
-
-  function generateToken(_user: { username: string; email: string }): string {
-    // Implement token generation logic here, e.g., using JWT
-    return 'dummy-token'; // Replace with actual token generation logic
-  }
-  res.status(200).json({ token, message: 'Login successful' });
-});
-
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+})();
