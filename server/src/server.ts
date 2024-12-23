@@ -8,7 +8,7 @@ const port = 3000;
 
 // CORS configuration
 const corsOptions = {
-    origin: 'http://localhost:5173', // Replace with your frontend URL
+    origin: 'http://localhost:3001/api', // Replace with your frontend URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed methods
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
@@ -29,10 +29,14 @@ app.get('/api/data', (_: Request, res: Response) => {
     res.json({ message: 'Hello from the backend!' });
 });
 
-const users: { username: string; email: string; password: string }[] = [];
+app.get('api/auth/login', (_: Request, res: Response) => {
+    res.json({ message: 'Login route' });
+});
+
+const users: { username: string; email: string; password: string }[] = []; // Example user storage
 
 // Signup endpoint
-app.post('/api/auth/signup', (req: Request, res: Response) => {
+app.post('/auth/signup', (req: Request, res: Response) => {
     const { username, email, password } = req.body;
 
     // Check if the user already exists
@@ -46,6 +50,30 @@ app.post('/api/auth/signup', (req: Request, res: Response) => {
     users.push(newUser );
 
     res.status(201).json({ message: 'User  created successfully' });
+});
+
+// const users: { username: string; password: string }[] = []; // Example user storage
+
+// Login endpoint
+app.post('/auth/login', (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  // Find the user by email
+  const user = users.find(user => user.email === email);
+
+  // Check if user exists and password matches
+  if (!user || user.password !== password) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+  }
+
+  // Successful login
+  const token = generateToken(user); // Implement token generation logic
+
+  function generateToken(_user: { username: string; email: string }): string {
+    // Implement token generation logic here, e.g., using JWT
+    return 'dummy-token'; // Replace with actual token generation logic
+  }
+  res.status(200).json({ token, message: 'Login successful' });
 });
 
 app.listen(port, () => {

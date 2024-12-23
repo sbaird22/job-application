@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await api.post('/api/auth/signup', formData);
+            const response = await api.post('/auth/signup', formData);
             setMessage(response.data.message); // Assuming the API returns a message
         } catch (error: unknown) {
             console.error(error);
