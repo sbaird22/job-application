@@ -10,7 +10,7 @@ export interface Job {
 }
 
 export const fetchJobListings = async (query: string, location: string): Promise<Job[]> => {
-    const apiKey = import.meta.env.VITE_SERPA_API_KEY; // Ensure you use VITE_ prefix for Vite to expose env variables
+    const apiKey = import.meta.env.VITE_SERP_API_KEY; // Ensure you use VITE_ prefix for Vite to expose env variables
     try {
         const response = await axios.get(`https://serpapi.com/search`, {
             params: {
