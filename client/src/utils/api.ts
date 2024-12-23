@@ -1,11 +1,12 @@
-import axios from "axios";
+// utils/api.ts
+import axios from 'axios';
 
-// Create an Axios instance
 const api = axios.create({
-    baseURL: "http://localhost:3001/api", // Default to localhost if not set
+    baseURL: 'http://localhost:3001', // Ensure this matches your backend server
     headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
     },
-    withCredentials: true, // Include credentials if needed for cookies or tokens
+    withCredentials: true,
 });
+
 export default api;
