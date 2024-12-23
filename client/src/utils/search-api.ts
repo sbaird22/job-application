@@ -18,6 +18,9 @@ export const fetchJobListings = async (query: string, location: string): Promise
                 location: location,
             },
         });
+        if (!response.data || !response.data.data) {
+            throw new Error("Unexpected response structure");
+        }
         return response.data.jobs; 
     } catch (error) {
         console.error("Error fetching jobs:", error);
