@@ -1,45 +1,34 @@
-import express, { Request, Response } from "express";
-import path from "path";
-import cors from "cors";
-import sequelize from "./config/database"; // Assuming Sequelize is used for database connections
-import dotenv from "dotenv";
-dotenv.config({ path: "./src/.env" }); // Load environment variables
-// Import your routes
-import jobRoutes from "./routes/jobRoutes";
-import jobSearchRoutes from "./routes/jobSearchRoutes";
-import authRoutes from "./routes/authRoutes";
+// src/server.ts
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import path from 'path';
+
 const app = express();
-const PORT = process.env.PORT || 3001;
-// Middleware
-app.use(
-  cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173", // Update with your client URL in production
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+const port = 3000;
+
+// CORS configuration
+const corsOptions = {
+    origin: 'http://localhost:5173', // Replace with your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed methods
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
+// Use CORS with options
+app.use(cors(corsOptions));
 app.use(express.json());
-// Serve static files from the Vite build directory
-const clientPath = path.resolve(__dirname, "../../../client");
-app.use(express.static(clientPath));
-// API Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/jobs", jobRoutes);
-app.use("/api/job-search", jobSearchRoutes);
-// Fallback for React SPA (Serve `index.html` for unmatched routes)
-app.get("*", (_req: Request, res: Response) => {
-  res.sendFile(path.resolve(clientPath, "index.html"));
+
+// Serve static files from the dist directory
+app.use(express.static(path.join(__dirname, '../dist')));
+
+app.get('/', (_: Request, res: Response) => {
+    const indexPath = path.join(__dirname, '../dist', 'index.html');
+    res.sendFile(indexPath);
 });
-// Start the server and connect to the database
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Database connected successfully!");
-    app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error("Database connection failed:", error);
-    process.exit(1); // Exit if the database connection fails
-  }
-})();
+
+app.get('/api/data', (req: Request, res: Response) => {
+    res.json({ message: 'Hello from the backend!' });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
