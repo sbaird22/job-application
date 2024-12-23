@@ -18,7 +18,7 @@ export const fetchJobListings = async (query: string, location: string): Promise
                 location: location,
             },
         });
-        return response.data.jobs; // Adjust based on the actual response structure
+        return response.data.jobs; 
     } catch (error) {
         console.error("Error fetching jobs:", error);
         throw new Error("Failed to fetch job listings");
