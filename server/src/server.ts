@@ -18,14 +18,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Serve static files from the dist directory
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/', (_: Request, res: Response) => {
-    const indexPath = path.join(__dirname, '../dist', 'index.html');
+    const indexPath = path.join(__dirname, '../../client/dist', 'index.html');
     res.sendFile(indexPath);
 });
 
-app.get('/api/data', (req: Request, res: Response) => {
+app.get('/api/data', (_: Request, res: Response) => {
     res.json({ message: 'Hello from the backend!' });
 });
 
