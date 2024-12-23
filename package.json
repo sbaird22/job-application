@@ -10,9 +10,10 @@
     "server": "cd server && npm start",
     "server:dev": "cd server && npm run dev",
     "install": "cd server && npm i && cd ../client && npm i",
-    "client:build": "cd client && npm run build",
+    "build:server": "cd server && npm install && tsc",
+    "build:client": "cd client && npm install && npm run build",
     "client:dev": "cd client && npm run dev",
-    "build": "cd server && npm run build",
+    "build": "npm run build:client && npm run build:server",
     "render-build": "npm install && npm run build"
     },
     "author": "Shane Baird & Drew DeMarois",
