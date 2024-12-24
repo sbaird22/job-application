@@ -33,6 +33,15 @@ router.get(
                     location, // Ensure the Job model includes a location field
                 },
             });
+            console.log("Local Results from DB:", localResults);
+
+            const transformedLocalResults = localResults.map((job: any) => ({
+                title: job.title,               // Already matches
+                company: job.companyName,       // Map companyName to company
+                location: job.location,         // Already matches
+                description: job.notes,         // Map notes to description
+            }));
+            console.log("Transformed Local Results:", transformedLocalResults);
 
             // Combine results
             const combinedResults = [...externalResults, ...localResults];
