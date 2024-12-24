@@ -18,9 +18,14 @@ export const fetchJobListings = async (query: string, location: string): Promise
                 location: location,
             },
         });
+        console.log("API Response:", response.data);
+        if (!response.data || !Array.isArray(response.data.data)) {
+            console.error("Unexpected response structure:", response.data);
+            throw new Error("Invalid response structure from backend.");
+        }
 
+        return response.data.data;
         
-        return response.data.jobs; // Adjust based on the actual response structure
 
     } catch (error) {
         console.error("Error fetching jobs:", error);
