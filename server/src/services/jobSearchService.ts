@@ -1,12 +1,12 @@
 import axios from "axios";
 import dotenv from 'dotenv';
-
+import { Job } from "../models/job";
 dotenv.config(); // Load environment variables
 
 const API_KEY = process.env.SERP_API_KEY;
 console.log("API Key:", process.env);
 
-export const fetchJobs = async (q: string, location: string): Promise<any[]> => {
+export const fetchJobs = async (q: string, location: string): Promise<Job[]> => {
     try {
         const response = await axios.get(`https://serpapi.com/search`, {
             params: {
