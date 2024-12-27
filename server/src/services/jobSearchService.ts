@@ -17,7 +17,7 @@ export const fetchJobs = async (q: string, location: string): Promise<Job[]> => 
             },
         });
         console.log("Full SerpAPI Response:", JSON.stringify(response.data, null, 2)); 
-        return response.data?.data || []; // Assuming the jobs are in the 'jobs' field of the response
+        return response.data?.jobs_results || []; // Assuming the jobs are in the 'jobs' field of the response
     } catch (error) {
         console.error("Error fetching jobs:", error);
         throw new Error("Failed to fetch job listings");
