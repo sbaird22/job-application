@@ -11,7 +11,7 @@ export interface Job {
 
 export const fetchJobListings = async (query: string, location: string): Promise<Job[]> => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/job-search/search`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/job-search/search`, {
             params: {
                 engine: "google_jobs",
                 q: query,
