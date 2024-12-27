@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { fetchJobListings, Job } from '../utils/search-api';
+import JobCard from '../components/JobCard';
 
 const SearchComponent: React.FC = () => {
     const [query, setQuery] = useState('');
@@ -25,22 +26,24 @@ const SearchComponent: React.FC = () => {
     };
 
     return (
-        <div>
-            <input 
-                type="text" 
-                placeholder="Job title" 
-                value={query} 
-                onChange={(e) => setQuery(e.target.value)} 
-            />
-            <input 
-                type="text" 
-                placeholder="Location" 
-                value={location} 
-                onChange={(e) => setLocation(e.target.value)} 
-            />
-            <button onClick={handleSearch} disabled={loading}>
+        <div className='search-container'>
+            <section className='search-bar'>
+                <input 
+                    type="text" 
+                    placeholder="Job title" 
+                    value={query} 
+                    onChange={(e) => setQuery(e.target.value)} 
+                />
+                <input 
+                    type="text" 
+                    placeholder="Location" 
+                    value={location} 
+                    onChange={(e) => setLocation(e.target.value)} 
+                />
+                <button onClick={handleSearch} disabled={loading}>
                 {loading ? 'Searching...' : 'Search'}
-            </button>
+                </button>
+            </section>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
