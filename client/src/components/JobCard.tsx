@@ -25,10 +25,7 @@ const JobCard = ({
 }) => {
     const [status, setStatus] = useState(job.status);
 
-    const handleStatusChange = (
-        newStatus: string,
-        event: React.MouseEvent<HTMLButtonElement>
-    ) => {
+    const handleStatusChange = (newStatus: string, event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation(); // Prevent event propagation
         setStatus(newStatus);
         onChangeStatus(job.id, newStatus);
