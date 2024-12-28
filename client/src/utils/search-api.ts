@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export interface Job {
     title: string;
-    companyName: string;
+    company_name: string;
     location: string;
     description: string;
     status: string;

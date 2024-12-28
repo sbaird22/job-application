@@ -11,7 +11,7 @@ const Jobs = () => {
     interface Job {
         id: number;
         title: string; // Add other properties of the job object here
-        companyName: string;
+        company_name: string;
         location: string;
         status: string;
         description: string;
