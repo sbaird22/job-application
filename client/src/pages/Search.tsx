@@ -24,6 +24,23 @@ const SearchComponent: React.FC = () => {
             setLoading(false);
         }
     };
+    const handleSave = (job: Job) => {
+        setJobs((prevJobs) => 
+            prevJobs.map((j) => (j.id ===job.id?{...j,status:'Saved'} : j))
+    );
+    console.log('Job saved:', job);
+};
+const handleDiscard = (id: number) => {
+    setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id));
+    console.log('Job discarded:', id);
+};
+const handleChangeStatus = (id: number, newStatus: string) => {
+    setJobs((prevJobs) =>
+        prevJobs.map((job) => (job.id === id ? { ...job, status: newStatus } : job))
+    );
+    console.log('Job status changed:', { id, newStatus });
+};
+                
 
     return (
         <div className='search-container'>
@@ -52,9 +69,9 @@ const SearchComponent: React.FC = () => {
                     <JobCard 
                         key={`${job.title}-${job.company_name}-${job.location}-${job.description}`} 
                         job={job}
-                        onSave={() => {/* handle save */}}
-                        onDiscard={() => {/* handle discard */}}
-                        onChangeStatus={() => {/* handle change status */}}
+                        onSave={  handleSave }
+                        onDiscard={ handleDiscard }
+                        onChangeStatus={ handleChangeStatus }
                     /> 
                 ))}
             </div>
