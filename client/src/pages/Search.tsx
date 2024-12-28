@@ -52,6 +52,9 @@ const SearchComponent: React.FC = () => {
                     <JobCard 
                         key={`${job.title}-${job.company_name}-${job.location}-${job.description}`} 
                         job={job}
+                        onSave={() => {/* handle save */}}
+                        onDiscard={() => {/* handle discard */}}
+                        onChangeStatus={() => {/* handle change status */}}
                     /> 
                 ))}
             </div>

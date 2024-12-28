@@ -3,10 +3,15 @@
 import axios from 'axios';
 
 export interface Job {
+    id: number;
     title: string;
     company_name: string;
     location: string;
+    status: string;
     description: string;
+    appliedDate: string;
+    notes: string;
+
 }
 
 export const fetchJobListings = async (query: string, location: string): Promise<Job[]> => {
