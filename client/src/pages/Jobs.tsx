@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import api from '../utils/api';
 import JobCard from "../components/JobCard";
 import Chart from "../components/Chart";
+import "../styles/Jobs.css";
+
 
 const Jobs = () => {
     interface Job {
@@ -38,10 +40,12 @@ const Jobs = () => {
     }, []);
 
     return (
-        <div className="container">
+        <div className="jobs-page">
             <h1>Job Listings</h1>
-            <Chart data={statusCounts} />
-            <div className="job-list">
+            <div className="chart-section">
+                <Chart data={statusCounts} />
+            </div>
+            <div className="job-list-container">
                 {jobs.map((job: Job) => (
                     <JobCard key={job.id} job={job} />
                 ))}
