@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/JobCard.css";
 interface Job {
     title: string;
-    companyName: string;
+    company_name: string;
     status: string;
     location: string;
     appliedDate: string;
@@ -13,7 +13,7 @@ interface Job {
 const JobCard = ({ job }: { job: Job }) => (
     <div className="job-card">
         <h3 className="job-title">{job.title}</h3>
-        <p><strong>Company: </strong>{job.companyName}</p>
+        <p><strong>Company: </strong>{job.company_name}</p>
         <p><strong>Location: </strong>{job.location}</p>
         <p><strong>Description: </strong>{job.description}</p>
         <p><strong>Status: </strong>{job.status}</p>
