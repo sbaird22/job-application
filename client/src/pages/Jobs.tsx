@@ -7,17 +7,18 @@ import Chart from "../components/Chart";
 import "../styles/Jobs.css";
 
 
+interface Job {
+    id: number;
+    title: string;
+    company_name: string;
+    location: string;
+    status: string;
+    description: string;
+    appliedDate: string;
+    notes: string;
+}
+
 const Jobs = () => {
-    interface Job {
-        id: number;
-        title: string; // Add other properties of the job object here
-        company_name: string;
-        location: string;
-        status: string;
-        description: string;
-        appliedDate: string;
-        notes: string;
-    }
 
     const [jobs, setJobs] = useState<Job[]>([]);
     const [statusCounts, setStatusCounts] = useState<{ [key: string]: number }>({});
@@ -41,6 +42,31 @@ const Jobs = () => {
         fetchJobs();
     }, []);
 
+const handleSaveJob = (job: Job) => {
+    console.log("Saving job:", job);
+    api.put(`/jobs/${job.id}`, job)
+};
+
+const handleDiscardJob = (id: number) => {
+    setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id));
+    console.log(`Discarding job with ID: ${id}`);
+    api.delete(`/jobs/${id}`);
+};
+
+const handleChangeStatus = (id: number, status: string) => {
+    const updatedJobs = jobs.map((job) => 
+        job.id === id ? { ...job, status } : job
+    );
+
+    setJobs(updatedJobs);
+    
+    const updatedCounts = { ...statusCounts };
+    updatedCounts[status] = (updatedCounts[status] || 0) + 1;
+    setStatusCounts(updatedCounts);
+
+    console.log(`Updating status of job with ID ${id} to ${status}`);
+};
+
     return (
         <div className="jobs-page">
             <h1>Job Listings</h1>
@@ -49,7 +75,7 @@ const Jobs = () => {
             </div>
             <div className="job-list-container">
                 {jobs.map((job: Job) => (
-                    <JobCard key={job.id} job={job} />
+                    <JobCard key={job.id} job={job} onSave={handleSaveJob} onDiscard={handleDiscardJob} onChangeStatus={handleChangeStatus} />
                 ))}
             </div>
         </div>
