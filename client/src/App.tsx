@@ -57,15 +57,6 @@ const App: React.FC = () => {
     console.log("Job saved:", job);
   };
 
-  const handleDiscard = (id: number) => {
-    setJobs((prevJobs) => {
-      const updatedJobs = prevJobs.filter((job) => job.id !== id);
-      updateStatsAndChart(updatedJobs);
-      return updatedJobs;
-    });
-    console.log("Job discarded:", id);
-  };
-
   const handleChangeStatus = (id: number, newStatus: string) => {
     setJobs((prevJobs) => {
       const updatedJobs = prevJobs.map((job) =>
@@ -100,7 +91,6 @@ const App: React.FC = () => {
                 jobs={jobs}
                 setJobs={setJobs}
                 onSave={handleSave}
-                onDiscard={handleDiscard}
                 onChangeStatus={handleChangeStatus}
               />
             </PrivateRoute>

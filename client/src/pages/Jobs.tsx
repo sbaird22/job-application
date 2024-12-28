@@ -47,11 +47,6 @@ const handleSaveJob = (job: Job) => {
     api.put(`/jobs/${job.id}`, job)
 };
 
-const handleDiscardJob = (id: number) => {
-    setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id));
-    console.log(`Discarding job with ID: ${id}`);
-    api.delete(`/jobs/${id}`);
-};
 
 const handleChangeStatus = (id: number, status: string) => {
     const updatedJobs = jobs.map((job) => 
@@ -75,7 +70,7 @@ const handleChangeStatus = (id: number, status: string) => {
             </div>
             <div className="job-list-container">
                 {jobs.map((job: Job) => (
-                    <JobCard key={job.id} job={job} onSave={handleSaveJob} onDiscard={handleDiscardJob} onChangeStatus={handleChangeStatus} />
+                    <JobCard key={job.id} job={job} onSave={handleSaveJob} onChangeStatus={handleChangeStatus} />
                 ))}
             </div>
         </div>

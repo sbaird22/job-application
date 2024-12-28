@@ -6,9 +6,8 @@ const SearchComponent: React.FC<{
     jobs: Job[]; 
     setJobs: React.Dispatch<React.SetStateAction<Job[]>>; 
     onSave: (job: Job) => void; 
-    onDiscard: (id: number) => void; 
     onChangeStatus: (id: number, newStatus: string) => void; 
-}> = ({ jobs, setJobs, onSave, onDiscard, onChangeStatus }) => {
+}> = ({ jobs, setJobs, onSave, onChangeStatus }) => {
     const [query, setQuery] = useState('');
     const [location, setLocation] = useState('');
     const [loading, setLoading] = useState(false);
@@ -57,9 +56,6 @@ const SearchComponent: React.FC<{
                         job={job}
                         onSave={(job) => { 
                             onSave(job); 
-                        }}
-                        onDiscard={(id) => { 
-                            onDiscard(id); 
                         }}
                         onChangeStatus={(id, newStatus) => { 
                             onChangeStatus(id, newStatus); 

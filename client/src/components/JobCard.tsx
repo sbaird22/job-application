@@ -15,12 +15,10 @@ interface Job {
 const JobCard = ({
     job,
     onSave,
-    onDiscard,
     onChangeStatus,
 }: {
     job: Job;
     onSave: (job: Job) => void;
-    onDiscard: (id: number) => void;
     onChangeStatus: (id: number, status: string) => void;
 }) => {
     const [status, setStatus] = useState(job.status);
@@ -34,12 +32,6 @@ const JobCard = ({
     const handleSave = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation(); // Prevent event propagation
         onSave(job);
-    };
-
-    const handleDiscard = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault(); // Prevent default behavior
-        event.stopPropagation(); // Prevent event propagation
-        onDiscard(job.id);
     };
 
     return (
@@ -76,7 +68,6 @@ const JobCard = ({
                     Offer
                 </button>
                 <button onClick={(e) => handleSave(e)}>Save</button>
-                <button onClick={(e) => handleDiscard(e)}>Discard</button>
             </div>
         </div>
     );
