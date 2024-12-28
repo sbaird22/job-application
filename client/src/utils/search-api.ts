@@ -7,6 +7,9 @@ export interface Job {
     company: string;
     location: string;
     description: string;
+    status: string;
+    appliedDate: string;
+    notes: string;
 }
 
 export const fetchJobListings = async (query: string, location: string): Promise<Job[]> => {

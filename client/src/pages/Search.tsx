@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { fetchJobListings, Job } from '../utils/search-api';
-import JobCard from '../components/JobCard';    
+import JobCard from '../components/JobCard'; 
+
 const SearchComponent: React.FC = () => {
     const [query, setQuery] = useState('');
     const [location, setLocation] = useState('');
@@ -48,7 +49,10 @@ const SearchComponent: React.FC = () => {
 
             <div className = "job-results">
                 {jobs.map((job) => (
-                    <JobCard key={job.title} job={job} /> 
+                    <JobCard 
+                        key={`${job.title}-${job.company}-${job.location}-${job.status}-${job.appliedDate}-${job.notes}`} 
+                        job={job}
+                    /> 
                 ))}
             </div>
         </div>
