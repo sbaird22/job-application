@@ -31,6 +31,7 @@ const JobCard = ({ job, onSave, onDiscard, onChangeStatus }: {
     };
 
     const handleDiscard = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault(); // Prevent default behavior
         event.stopPropagation(); // Prevent event propagation
         onDiscard(job.id);
     };
