@@ -15,6 +15,8 @@ const Jobs = () => {
         location: string;
         status: string;
         description: string;
+        appliedDate: string;
+        notes: string;
     }
 
     const [jobs, setJobs] = useState<Job[]>([]);
