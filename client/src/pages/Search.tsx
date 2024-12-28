@@ -47,12 +47,8 @@ const SearchComponent: React.FC = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             <div className = "job-results">
-                {jobs.map((job, index) => (
-                    <div key={index}>
-                        <h3>{job.title}</h3>
-                        <p>{job.company} - {job.location}</p>
-                        <p>{job.description}</p>
-                    </div>
+                {jobs.map((job) => (
+                    <JobCard key={job.title} job={job} /> 
                 ))}
             </div>
         </div>
