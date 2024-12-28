@@ -50,7 +50,7 @@ const SearchComponent: React.FC = () => {
             <div className = "job-results">
                 {jobs.map((job) => (
                     <JobCard 
-                        key={`${job.title}-${job.company_name}-${job.location}-${job.status}-${job.appliedDate}-${job.notes}`} 
+                        key={`${job.title}-${job.company_name}-${job.location}-${job.description}`} 
                         job={job}
                     /> 
                 ))}
