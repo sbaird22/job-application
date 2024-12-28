@@ -19,10 +19,21 @@ const JobCard = ({ job, onSave, onDiscard, onChangeStatus }: {
 }) => {
     const [status, setStatus] = useState(job.status);
 
-    const handleStatusChange = (newStatus: string) => {
+    const handleStatusChange = (newStatus: string, event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation(); // Prevent event propagation
         setStatus(newStatus);
         onChangeStatus(job.id, newStatus);
-    }
+    };
+
+    const handleSave = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation(); // Prevent event propagation
+        onSave(job);
+    };
+
+    const handleDiscard = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation(); // Prevent event propagation
+        onDiscard(job.id);
+    };
 
     return (
         <div className="job-card">
@@ -33,11 +44,11 @@ const JobCard = ({ job, onSave, onDiscard, onChangeStatus }: {
             <p><strong>Status: </strong>{status}</p>
             
     <div className="job-actions">
-        <button onClick={() => handleStatusChange("Applied")}>Applied</button>
-        <button onClick={() => handleStatusChange("Interview")}>Interview</button>
-        <button onClick={() => handleStatusChange("Offer")}>Offer</button>
-        <button onClick={() => onSave(job)}>Save</button>
-        <button onClick={() => onDiscard(job.id)}>Discard</button>
+        <button onClick={(e) => handleStatusChange("Applied", e)}>Applied</button>
+        <button onClick={(e) => handleStatusChange("Interview", e)}>Interview</button>
+        <button onClick={(e) => handleStatusChange("Offer",e)}>Offer</button>
+        <button onClick={(e) => handleSave(e)}>Save</button>
+        <button onClick={(e) => handleDiscard(e)}>Discard</button>
     </div>
 </div>
 );
