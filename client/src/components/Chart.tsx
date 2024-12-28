@@ -8,7 +8,13 @@ const Chart = ({ data }: { data: Record<string, number> }) => {
             {
                 label: "Job Applications",
                 data: Object.values(data),
-                backgroundColor: ["#007acc", "#60a5fa", "#e2e8f0", "#475569", "#1e293b"],
+                backgroundColor: [
+                    "#007acc",
+                    "#60a5fa",
+                    "#e2e8f0",
+                    "#475569",
+                    "#1e293b"
+                    ],
             },
         ],
     };
