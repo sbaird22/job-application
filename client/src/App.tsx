@@ -8,6 +8,12 @@ import Navbar from './components/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 
 const App: React.FC = () => {
+  const stats: { totalJobs: number; interviews: number; offers: number } = {
+    totalJobs: 0,
+    interviews: 0,
+    offers: 0,
+  }; // Define stats variable with type
+  const chartData: { [key: string]: number } = {}; // Define chartData variable with type
   return (
     <>
       <Navbar />
@@ -16,7 +22,7 @@ const App: React.FC = () => {
           path="/"
           element={
             <PrivateRoute>
-              <Home />
+              <Home stats={stats} chartData={chartData}/>
             </PrivateRoute>
           }
         />

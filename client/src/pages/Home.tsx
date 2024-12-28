@@ -9,11 +9,7 @@ interface Stats {
     offers: number;
 }
 
-interface ChartData {
-    [key: string]: number;
-}
-
-const Home = ({ stats, chartData }: {stats: Stats; chartData: ChartData}) => {
+const Home = ({ stats, chartData }: {stats: Stats; chartData: Record<string, number>}) => {
     return (
         <div className="dashboard">
             <h1>Job Tracker Dashboard</h1>
