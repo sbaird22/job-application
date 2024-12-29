@@ -59,9 +59,14 @@ const App: React.FC = () => {
 
   const handleChangeStatus = (id: number, newStatus: string) => {
     setJobs((prevJobs) => {
-      const updatedJobs = prevJobs.map((job) =>
-        job.id === id ? { ...job, status: newStatus } : job
-      );
+      const updatedJobs = prevJobs.map((job) => {
+        if (job.id === id) {
+          return { ...job, status: newStatus };
+        }
+        return job;
+      });
+
+      // Update the chart data after changing the status
       updateStatsAndChart(updatedJobs);
       return updatedJobs;
     });
