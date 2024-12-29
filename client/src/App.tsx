@@ -32,6 +32,7 @@ const App: React.FC = () => {
 
   // Function to update stats and chartData
   const updateStatsAndChart = (updatedJobs: Job[]) => {
+    console.log("Updated Jobs Array:", updatedJobs);
     const totalJobs = updatedJobs.length;
     const interviews = updatedJobs.filter((job) => job.status === "Interview").length;
     const offers = updatedJobs.filter((job) => job.status === "Offer").length;
@@ -42,6 +43,7 @@ const App: React.FC = () => {
       acc[job.status] = (acc[job.status] || 0) + 1;
       return acc;
     }, {});
+    console.log("Updated Status Counts for Chart:", statusCounts);
     setChartData(statusCounts);
   };
 
@@ -51,6 +53,7 @@ const App: React.FC = () => {
       const updatedJobs = prevJobs.map((j) =>
         j.id === job.id ? { ...j, status: "Saved" } : j
       );
+      console.log("Jobs After Save:", updatedJobs);
       updateStatsAndChart(updatedJobs);
       return updatedJobs;
     });
@@ -65,6 +68,7 @@ const App: React.FC = () => {
         }
         return job;
       });
+      console.log("Jobs After Status Change:", updatedJobs); 
 
       // Update the chart data after changing the status
       updateStatsAndChart(updatedJobs);
