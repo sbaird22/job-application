@@ -1,28 +1,24 @@
-import React from "react";
-import {
-    Chart as ChartJS,
-    ArcElement,
-    Tooltip,
-    Legend,
-} from "chart.js";
-import { Pie } from "react-chartjs-2";
+// src/components/Chart.tsx
+import React from 'react';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Chart = ({ data }: { data: Record<string, number> }) => {
+const Chart: React.FC<{ data: Record<string, number> }> = ({ data }) => {
     const chartData = {
         labels: Object.keys(data),
         datasets: [
             {
-                label: "Job Applications",
+                label: 'Job Application Status',
                 data: Object.values(data),
                 backgroundColor: [
-                    "#007acc",
-                    "#60a5fa",
-                    "#e2e8f0",
-                    "#475569",
-                    "#1e293b"
-                    ],
+                    '#007acc',
+                    '#60a5fa',
+                    '#e2e8f0',
+                    '#475569',
+                    '#1e293b',
+                ],
             },
         ],
     };

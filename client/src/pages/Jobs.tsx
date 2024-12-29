@@ -28,27 +28,26 @@ const Jobs = () => {
             try {
                 const response = await api.get("/jobs");
                 setJobs(response.data);
-
+    
                 const counts: { [key: string]: number } = {};
                 response.data.forEach((job: Job) => {
                     counts[job.status] = (counts[job.status] || 0) + 1;
                 });
-                setStatusCounts(counts);
+                setStatusCounts(counts); // Set the status counts for the chart
             } catch (error) {
                 console.error("Error fetching jobs:", error);
             }
         };
-
+    
         fetchJobs();
     }, []);
-
-const handleSaveJob = (job: Job) => {
+const handleSaveJob = async (job: Job) => {
     console.log("Saving job:", job);
     api.put(`/jobs/${job.id}`, job)
 };
 
 
-const handleChangeStatus = (id: number, status: string) => {
+const handleChangeStatus = async (id: number, status: string) => {
     const updatedJobs = jobs.map((job) => 
         job.id === id ? { ...job, status } : job
     );
@@ -60,6 +59,11 @@ const handleChangeStatus = (id: number, status: string) => {
     setStatusCounts(updatedCounts);
 
     console.log(`Updating status of job with ID ${id} to ${status}`);
+    try {
+        await api.put(`/jobs/${id}`, { status });
+    } catch (error) {
+        console.error(`Failed to update status of job with ID ${id}:`, error);
+    }
 };
 
     return (

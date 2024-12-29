@@ -1,14 +1,17 @@
-import React from "react";
 import "../styles/Home.css";
-import Chart from "../components/Chart";
+import React from 'react';
+import Chart from '../components/Chart';
 
-interface Stats {
-    totalJobs: number;
-    interviews: number;
-    offers: number;
+interface HomeProps {
+    stats: {
+        totalJobs: number;
+        interviews: number;
+        offers: number;
+    };
+    chartData: Record<string, number>;
 }
 
-const Home: React.FC<{ stats: Stats; chartData: Record<string, number> }> = ({ stats, chartData }) => {
+const Home: React.FC<HomeProps> = ({ stats, chartData }) => {
     return (
         <div className="dashboard">
             <h1>Job Tracker Dashboard</h1>
