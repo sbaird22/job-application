@@ -28,8 +28,13 @@ export const fetchJobListings = async (query: string, location: string): Promise
             console.error("Unexpected response structure:", response.data);
             throw new Error("Invalid response structure from backend.");
         }
+        const jobs = response.data.data.map((job: any) => ({
+            ...job,
+            id: job.job_id ?? job.id, // Prefer `job_id`, fallback to `id` if `job_id` is missing
+        }));
 
-        return response.data.data;
+        console.log("Mapped Jobs with IDs:", jobs);
+        return jobs;
         
 
     } catch (error) {
