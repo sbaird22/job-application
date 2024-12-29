@@ -18,6 +18,7 @@ const SearchComponent: React.FC<{
         setError(null); // Reset error state
         try {
             const results = await fetchJobListings(query, location);
+            console.log("Fetched jobs from API:", results);
             setJobs(results);
         } catch (err) {
             setError('Failed to fetch job listings. Please try again.');
