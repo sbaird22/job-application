@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
+import SavedJobs from "./pages/SavedJobs";
 import "./styles/App.css";
 
 interface Job {
@@ -91,6 +92,15 @@ const App: React.FC = () => {
             </PrivateRoute>
           }
         />
+        <Route
+  path="/saved"
+  element={
+    <SavedJobs
+      jobs={jobs}
+      onChangeStatus={handleChangeStatus}
+    />
+  }
+/>
 
         {/* Search Page */}
         <Route
