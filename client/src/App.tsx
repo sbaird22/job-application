@@ -32,6 +32,7 @@ const App: React.FC = () => {
 
   // Function to update stats and chartData
   const updateStatsAndChart = (updatedJobs: Job[]) => {
+    console.log("Updated Jobs Array:", updatedJobs);
     const totalJobs = updatedJobs.length;
     const interviews = updatedJobs.filter((job) => job.status === "Interview").length;
     const offers = updatedJobs.filter((job) => job.status === "Offer").length;

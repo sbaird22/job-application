@@ -6,6 +6,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Chart: React.FC<{ data: Record<string, number> }> = ({ data }) => {
+    console.log("Chart Data Received:", data);
     const chartData = {
         labels: Object.keys(data),
         datasets: [

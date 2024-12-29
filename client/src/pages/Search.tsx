@@ -55,6 +55,7 @@ const SearchComponent: React.FC<{
                         key={`${job.title}-${job.company_name}-${job.location}-${job.description}`} 
                         job={job}
                         onSave={(job) => { 
+                            console.log("Saving job:", job); 
                             onSave(job); 
                         }}
                         onChangeStatus={(id, newStatus) => { 
