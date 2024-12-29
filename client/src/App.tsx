@@ -29,17 +29,19 @@ const App: React.FC = () => {
     totalJobs: 0,
     interviews: 0,
     offers: 0,
+    applied: 0,
   });
   const [chartData, setChartData] = useState<Record<string, number>>({});
 
   // Function to update stats and chartData
   const updateStatsAndChart = (updatedJobs: Job[]) => {
     console.log("Updated Jobs Array:", updatedJobs);
-    const totalJobs = updatedJobs.length;
+    const applied = updatedJobs.filter((job) => job.status === "Applied").length;
     const interviews = updatedJobs.filter((job) => job.status === "Interview").length;
     const offers = updatedJobs.filter((job) => job.status === "Offer").length;
+    const totalJobs = updatedJobs.length;
 
-    setStats({ totalJobs, interviews, offers });
+    setStats({ applied, interviews, offers, totalJobs });
 
     const statusCounts = updatedJobs.reduce<Record<string, number>>((acc, job) => {
       acc[job.status] = (acc[job.status] || 0) + 1;
