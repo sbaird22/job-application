@@ -7,6 +7,7 @@ interface HomeProps {
         totalJobs: number;
         interviews: number;
         offers: number;
+        applied: number;
     };
     chartData: Record<string, number>;
 }
@@ -16,9 +17,10 @@ const Home: React.FC<HomeProps> = ({ stats, chartData }) => {
         <div className="dashboard">
             <h1>Job Tracker Dashboard</h1>
             <div className="stats">
-                <p><strong>Total Jobs Applied:</strong> {stats.totalJobs}</p>
+                <p><strong>Total Jobs Found:</strong> {stats.totalJobs}</p>
                 <p><strong>Interviews Scheduled:</strong> {stats.interviews}</p>
                 <p><strong>Offers Received:</strong> {stats.offers}</p>
+                <p><strong>Applications Submitted:</strong> {stats.applied}</p>
             </div>
             <div className="chart-section">
                 <h2>Job Application Status</h2>
