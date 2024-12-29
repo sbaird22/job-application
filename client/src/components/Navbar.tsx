@@ -18,6 +18,14 @@ const Navbar: React.FC = () => {
         <Link to="/saved">Saved Jobs</Link>
         {!isLoggedIn && <Link to="/signup">Signup</Link>}
         {!isLoggedIn && <Link to="/login">Login</Link>}
+
+      <h1 className='navbar-brand'>Job Tracker</h1>
+      <nav className='navbar-links'>
+        <Link className='navbar-btn' to="/">Home</Link>
+        <Link className='navbar-btn' to="/search">Search</Link>
+        {!isLoggedIn && <Link className='navbar-btn' to="/signup">Signup</Link>}
+        {!isLoggedIn && <Link className='navbar-btn' to="/login">Login</Link>}
+
         {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
       </nav>
     </header>

@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
 import SavedJobs from "./pages/SavedJobs";
+import "./styles/App.css";
+
 interface Job {
   id: number;
   title: string;
